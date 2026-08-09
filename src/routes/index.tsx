@@ -1,24 +1,49 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { SiteNav } from "@/components/showroom/SiteNav";
+import { Hero } from "@/components/showroom/Hero";
+import { Collection } from "@/components/showroom/Collection";
+import { Categories } from "@/components/showroom/Categories";
+import { FeaturedVehicle, Technology } from "@/components/showroom/FeaturedVehicle";
+import { HarshaXAutomobile, AboutHarsha } from "@/components/showroom/Harsha";
+import { TestDrive, SiteFooter } from "@/components/showroom/Closing";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "Harsha Automobile Showroom | Luxury & Performance Cars" },
+      {
+        name: "description",
+        content:
+          "A private showroom of curated luxury sedans, performance coupes, SUVs and electric cars. Personally inspected, 214-point prepared, delivered by appointment.",
+      },
+      { property: "og:title", content: "Harsha Automobile Showroom" },
+      {
+        property: "og:description",
+        content:
+          "Curated luxury and performance automobiles, personally inspected and delivered by private appointment.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
+    <div className="min-h-screen bg-background text-foreground">
+      <SiteNav />
+      <main>
+        <Hero />
+        <Collection />
+        <Categories />
+        <FeaturedVehicle />
+        <Technology />
+        <HarshaXAutomobile />
+        <AboutHarsha />
+        <TestDrive />
+      </main>
+      <SiteFooter />
     </div>
   );
 }

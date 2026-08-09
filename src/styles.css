@@ -166,6 +166,7 @@
   100% {
     transform: scale(1.06) translate3d(0, 0, 0);
   }
+
   50% {
     transform: scale(1.1) translate3d(-1.5%, -1%, 0);
   }
