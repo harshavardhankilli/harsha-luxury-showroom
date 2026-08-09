@@ -45,22 +45,18 @@ export function FeaturedVehicle() {
 
             <dl className="mt-12 grid max-w-2xl grid-cols-2 gap-8 border-t border-border pt-8 md:grid-cols-4">
               {[
-                ["3.2s", "0–100 km/h"),
-              ].length === 0
-                ? null
-                : [
-                    ["3.2s", "0–100 km/h"],
-                    ["710 hp", "Output"],
-                    ["318", "Top speed km/h"],
-                    ["12", "Units in India"],
-                  ].map(([v, l]) => (
-                    <div key={l}>
-                      <dt className="font-display text-3xl text-ivory md:text-4xl">{v}</dt>
-                      <dd className="mt-2 text-[0.65rem] uppercase tracking-[0.24em] text-muted-foreground">
-                        {l}
-                      </dd>
-                    </div>
-                  ))}
+                ["3.2s", "0–100 km/h"],
+                ["710 hp", "Output"],
+                ["318", "Top speed km/h"],
+                ["12", "Units in India"],
+              ].map(([v, l]) => (
+                <div key={l}>
+                  <dt className="font-display text-3xl text-ivory md:text-4xl">{v}</dt>
+                  <dd className="mt-2 text-[0.65rem] uppercase tracking-[0.24em] text-muted-foreground">
+                    {l}
+                  </dd>
+                </div>
+              ))}
             </dl>
           </div>
         </div>
