@@ -172,9 +172,19 @@
   }
 }
 
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
 @utility drift {
   animation: slow-drift 24s ease-in-out infinite;
 }
+
 
 @media (prefers-reduced-motion: reduce) {
   .reveal {
