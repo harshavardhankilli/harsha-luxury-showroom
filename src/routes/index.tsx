@@ -2,10 +2,13 @@ import { createFileRoute } from "@tanstack/react-router";
 import { SiteNav } from "@/components/showroom/SiteNav";
 import { Hero } from "@/components/showroom/Hero";
 import { Collection } from "@/components/showroom/Collection";
+import { Showroom } from "@/components/showroom/Showroom";
+import { Journey } from "@/components/showroom/Journey";
+import { Interior, Details } from "@/components/showroom/Interior";
 import { Categories } from "@/components/showroom/Categories";
-import { FeaturedVehicle, Technology } from "@/components/showroom/FeaturedVehicle";
 import { HarshaXAutomobile, AboutHarsha } from "@/components/showroom/Harsha";
 import { TestDrive, SiteFooter } from "@/components/showroom/Closing";
+import { BookingProvider } from "@/components/showroom/booking";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -31,19 +34,23 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <SiteNav />
-      <main>
-        <Hero />
-        <Collection />
-        <Categories />
-        <FeaturedVehicle />
-        <Technology />
-        <HarshaXAutomobile />
-        <AboutHarsha />
-        <TestDrive />
-      </main>
-      <SiteFooter />
-    </div>
+    <BookingProvider>
+      <div className="min-h-screen bg-background text-foreground">
+        <SiteNav />
+        <main>
+          <Hero />
+          <Collection />
+          <Showroom />
+          <Journey />
+          <Interior />
+          <Details />
+          <Categories />
+          <HarshaXAutomobile />
+          <AboutHarsha />
+          <TestDrive />
+        </main>
+        <SiteFooter />
+      </div>
+    </BookingProvider>
   );
 }

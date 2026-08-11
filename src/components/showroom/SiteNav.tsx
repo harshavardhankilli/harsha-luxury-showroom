@@ -1,30 +1,39 @@
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
+import { useBooking } from "./booking";
 
 const links = [
   { label: "Collection", href: "#collection" },
-  { label: "Categories", href: "#categories" },
-  { label: "Technology", href: "#technology" },
+  { label: "Showroom", href: "#showroom" },
+  { label: "Journey", href: "#journey" },
+  { label: "Interior", href: "#interior" },
   { label: "Harsha", href: "#harsha" },
-  { label: "Test Drive", href: "#test-drive" },
 ];
 
 export function SiteNav() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [ready, setReady] = useState(false);
+  const { open: openBooking } = useBooking();
 
   useEffect(() => {
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const t = setTimeout(() => setReady(true), reduced ? 0 : 2600);
     const onScroll = () => setScrolled(window.scrollY > 40);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      clearTimeout(t);
+      window.removeEventListener("scroll", onScroll);
+    };
   }, []);
 
   return (
     <header
       className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-all duration-700",
-        scrolled ? "bg-onyx/80 backdrop-blur-xl" : "bg-transparent",
+        "fixed inset-x-0 top-0 z-50 transition-all duration-1000",
+        scrolled ? "bg-onyx/70 backdrop-blur-xl" : "bg-transparent",
+        ready ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-3 opacity-0",
       )}
     >
       <div
@@ -53,12 +62,12 @@ export function SiteNav() {
               <span className="absolute -bottom-2 left-0 h-px w-0 bg-gold transition-all duration-500 group-hover:w-full" />
             </a>
           ))}
-          <a
-            href="#test-drive"
+          <button
+            onClick={() => openBooking("test-drive")}
             className="border border-gold/40 px-6 py-3 text-xs uppercase tracking-[0.24em] text-gold-soft transition-all duration-500 hover:bg-gold hover:text-primary-foreground"
           >
-            Book a Drive
-          </a>
+            Book a Test Drive
+          </button>
         </nav>
 
         <button
@@ -84,7 +93,7 @@ export function SiteNav() {
       <div
         className={cn(
           "overflow-hidden border-t border-border/60 bg-onyx/95 backdrop-blur-xl transition-all duration-700 lg:hidden",
-          open ? "max-h-96" : "max-h-0",
+          open ? "max-h-[32rem]" : "max-h-0",
         )}
       >
         <nav className="flex flex-col gap-5 px-6 py-8">
@@ -98,6 +107,15 @@ export function SiteNav() {
               {l.label}
             </a>
           ))}
+          <button
+            onClick={() => {
+              setOpen(false);
+              openBooking("private-viewing");
+            }}
+            className="mt-2 border border-gold/40 px-6 py-3 text-xs uppercase tracking-[0.24em] text-gold-soft"
+          >
+            Request Private Viewing
+          </button>
         </nav>
       </div>
     </header>
