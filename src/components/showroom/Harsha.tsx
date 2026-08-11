@@ -29,7 +29,7 @@ export function HarshaXAutomobile() {
       <div className="mx-auto grid max-w-[1600px] gap-12 px-6 py-24 md:px-10 md:py-32 lg:grid-cols-12 lg:gap-8">
         <Reveal className="lg:col-span-5">
           <Shot
-            slot={shots.harshaWithMaybach}
+            slot={shots.harshaMaybach}
             alt="Harsha with a Mercedes-Maybach at the showroom"
             className="aspect-3/4 w-full"
           />
