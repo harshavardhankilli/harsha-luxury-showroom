@@ -34,19 +34,23 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <SiteNav />
-      <main>
-        <Hero />
-        <Collection />
-        <Categories />
-        <FeaturedVehicle />
-        <Technology />
-        <HarshaXAutomobile />
-        <AboutHarsha />
-        <TestDrive />
-      </main>
-      <SiteFooter />
-    </div>
+    <BookingProvider>
+      <div className="min-h-screen bg-background text-foreground">
+        <SiteNav />
+        <main>
+          <Hero />
+          <Collection />
+          <Showroom />
+          <Journey />
+          <Interior />
+          <Details />
+          <Categories />
+          <HarshaXAutomobile />
+          <AboutHarsha />
+          <TestDrive />
+        </main>
+        <SiteFooter />
+      </div>
+    </BookingProvider>
   );
 }
