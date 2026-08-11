@@ -77,7 +77,7 @@ export function Shot({
 }: {
   slot: Slot;
   alt: string;
-  className?: string;
+  className?: string | undefined;
   imgClassName?: string | undefined;
   position?: string | undefined;
   style?: React.CSSProperties | undefined;
