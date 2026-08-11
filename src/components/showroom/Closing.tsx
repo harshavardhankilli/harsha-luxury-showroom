@@ -1,21 +1,18 @@
-import { media } from "@/lib/media";
-import { Reveal } from "./primitives";
+import { shots } from "@/lib/media";
+import { Reveal, Shot } from "./primitives";
+import { BookingButtons } from "./booking";
 
 export function TestDrive() {
   return (
     <section id="test-drive" className="vignette relative overflow-hidden">
-      <img
-        src={media.suv}
+      <Shot
+        slot={shots.showroomFinal}
         alt=""
-        aria-hidden
-        loading="lazy"
-        width={1280}
-        height={960}
-        className="absolute inset-0 h-full w-full object-cover opacity-30"
+        className="absolute inset-0 h-full w-full opacity-35"
       />
       <div className="absolute inset-0 bg-linear-to-b from-onyx via-onyx/70 to-onyx" />
 
-      <div className="relative z-10 mx-auto max-w-[1600px] px-6 py-32 text-center md:px-10 md:py-44">
+      <div className="relative z-10 mx-auto max-w-[1600px] px-6 py-28 text-center md:px-10 md:py-40">
         <Reveal>
           <p className="eyebrow">Private Appointment</p>
           <h2 className="mx-auto mt-8 max-w-4xl font-display text-[clamp(2.5rem,7vw,6rem)] leading-[0.95]">
@@ -29,26 +26,9 @@ export function TestDrive() {
           </p>
         </Reveal>
 
-        <Reveal delay={180}>
-          <form
-            onSubmit={(e) => e.preventDefault()}
-            className="mx-auto mt-12 flex max-w-xl flex-col gap-3 sm:flex-row"
-          >
-            <input
-              type="email"
-              required
-              placeholder="Your email"
-              aria-label="Your email"
-              className="min-w-0 flex-1 border border-input bg-transparent px-5 py-4 text-sm text-ivory placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none"
-            />
-            <button
-              type="submit"
-              className="shrink-0 border border-gold/60 bg-gold/10 px-8 py-4 text-xs uppercase tracking-[0.28em] text-gold-soft transition-all duration-500 hover:bg-gold hover:text-primary-foreground"
-            >
-              Request a Drive
-            </button>
-          </form>
-          <p className="mt-5 text-xs tracking-widest text-muted-foreground">
+        <Reveal delay={160}>
+          <BookingButtons className="mt-11 justify-center" />
+          <p className="mt-6 text-xs tracking-widest text-muted-foreground">
             Or call +91 98000 00000 · Mon–Sat, 10:00–19:00
           </p>
         </Reveal>
@@ -79,9 +59,10 @@ export function SiteFooter() {
             <p className="eyebrow">Explore</p>
             <ul className="mt-6 space-y-3 text-sm text-muted-foreground">
               {[
-                ["Featured Collection", "#collection"],
-                ["Categories", "#categories"],
-                ["Technology", "#technology"],
+                ["The Collection", "#collection"],
+                ["The Showroom", "#showroom"],
+                ["A Day at Harsha", "#journey"],
+                ["Interior & Detail", "#interior"],
                 ["About Harsha", "#about"],
               ].map(([l, h]) => (
                 <li key={h}>
