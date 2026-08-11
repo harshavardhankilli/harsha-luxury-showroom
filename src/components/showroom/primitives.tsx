@@ -9,8 +9,8 @@ export function Reveal({
   className,
 }: {
   children: ReactNode;
-  delay?: number;
-  className?: string;
+  delay?: number | undefined;
+  className?: string | undefined;
 }) {
   const { ref, shown } = useReveal<HTMLDivElement>();
   return (
@@ -42,7 +42,7 @@ export function ReservedPhotoSlot({
 }: {
   label: string;
   filename: string;
-  className?: string;
+  className?: string | undefined;
 }) {
   return (
     <div
@@ -78,10 +78,10 @@ export function Shot({
   slot: Slot;
   alt: string;
   className?: string;
-  imgClassName?: string;
-  position?: string;
-  style?: React.CSSProperties;
-  loading?: "lazy" | "eager";
+  imgClassName?: string | undefined;
+  position?: string | undefined;
+  style?: React.CSSProperties | undefined;
+  loading?: "lazy" | "eager" | undefined;
 }) {
   const src = slot.src ?? slot.fallback;
   if (!src) {
