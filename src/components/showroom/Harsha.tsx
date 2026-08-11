@@ -1,87 +1,83 @@
-import { harshaMedia } from "@/lib/media";
-import { Reveal, ReservedPhotoSlot, SectionLabel } from "./primitives";
+import { shots } from "@/lib/media";
+import { Reveal, SectionLabel, Shot } from "./primitives";
+import { BookingButtons } from "./booking";
 
 const marquee = "HARSHA × AUTOMOBILE — CURATION — PREPARATION — DELIVERY — ";
 
 export function HarshaXAutomobile() {
   return (
     <section id="harsha" className="relative overflow-hidden border-y border-border">
-      {/* WOW: infinite editorial marquee */}
       <div className="relative flex overflow-hidden border-b border-border py-6">
-        <div className="flex min-w-full shrink-0 animate-[marquee_38s_linear_infinite] items-center gap-8 whitespace-nowrap">
-          {Array.from({ length: 4 }).map((_, i) => (
-            <span
-              key={i}
-              className="font-display text-[clamp(1.75rem,4vw,3.25rem)] tracking-tight text-ivory/12"
-            >
-              {marquee}
-            </span>
-          ))}
-        </div>
-        <div
-          aria-hidden
-          className="flex min-w-full shrink-0 animate-[marquee_38s_linear_infinite] items-center gap-8 whitespace-nowrap"
-        >
-          {Array.from({ length: 4 }).map((_, i) => (
-            <span
-              key={i}
-              className="font-display text-[clamp(1.75rem,4vw,3.25rem)] tracking-tight text-ivory/12"
-            >
-              {marquee}
-            </span>
-          ))}
-        </div>
+        {[0, 1].map((k) => (
+          <div
+            key={k}
+            aria-hidden={k === 1}
+            className="flex min-w-full shrink-0 animate-[marquee_38s_linear_infinite] items-center gap-8 whitespace-nowrap"
+          >
+            {Array.from({ length: 4 }).map((_, i) => (
+              <span
+                key={i}
+                className="font-display text-[clamp(1.75rem,4vw,3.25rem)] tracking-tight text-ivory/12"
+              >
+                {marquee}
+              </span>
+            ))}
+          </div>
+        ))}
       </div>
 
-      <div className="mx-auto grid max-w-[1600px] gap-14 px-6 py-28 md:px-10 md:py-36 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1fr)] lg:gap-24">
-        <Reveal>
-          {harshaMedia.portrait ? (
-            <img
-              src={harshaMedia.portrait}
-              alt="Harsha, founder of Harsha Automobile Showroom"
-              loading="lazy"
-              className="aspect-3/4 w-full object-cover"
-            />
-          ) : (
-            <ReservedPhotoSlot
-              label="Portrait of Harsha"
-              filename="src/assets/harsha-portrait.jpg"
-              className="aspect-3/4"
-            />
-          )}
+      <div className="mx-auto grid max-w-[1600px] gap-12 px-6 py-24 md:px-10 md:py-32 lg:grid-cols-12 lg:gap-8">
+        <Reveal className="lg:col-span-5">
+          <Shot
+            slot={shots.harshaWithMaybach}
+            alt="Harsha with a Mercedes-Maybach at the showroom"
+            className="aspect-3/4 w-full"
+          />
         </Reveal>
 
-        <div className="flex flex-col justify-center">
+        <Reveal delay={140} className="lg:col-span-3 lg:mt-28">
+          <Shot
+            slot={shots.harshaMercedes}
+            alt="Harsha beside a Mercedes"
+            className="aspect-3/4 w-full"
+          />
+          <p className="mt-3 text-[0.6rem] uppercase tracking-[0.3em] text-muted-foreground">
+            Harsha — Founder
+          </p>
+        </Reveal>
+
+        <div className="flex flex-col justify-center lg:col-span-4 lg:pl-6">
           <Reveal>
-            <SectionLabel index="05">Harsha × Automobile</SectionLabel>
-            <h2 className="mt-6 font-display text-[clamp(2.25rem,5.5vw,5rem)] leading-[0.95]">
+            <SectionLabel index="06">Harsha × Automobile</SectionLabel>
+            <h2 className="mt-6 font-display text-[clamp(2rem,4.4vw,4rem)] leading-[0.95]">
               A lifetime spent
               <br />
               <em className="text-gradient-gold not-italic">around the machine</em>
             </h2>
           </Reveal>
           <Reveal delay={140}>
-            <p className="mt-8 max-w-lg text-sm leading-relaxed text-muted-foreground md:text-base">
+            <p className="mt-7 max-w-md text-sm leading-relaxed text-muted-foreground md:text-base">
               The showroom carries one person's judgement. Every car listed here has been driven,
-              inspected and signed off personally — not sourced from a catalogue. That is the whole
-              proposition: fewer cars, better cars, and a straight answer about each one.
+              inspected and signed off personally — not sourced from a catalogue. Fewer cars, better
+              cars, and a straight answer about each one.
             </p>
           </Reveal>
           <Reveal delay={240}>
-            <dl className="mt-12 grid grid-cols-2 gap-8 border-t border-border pt-8 sm:grid-cols-3">
+            <dl className="mt-10 grid grid-cols-3 gap-6 border-t border-border pt-7">
               {[
                 ["16", "Years in motoring"],
                 ["900+", "Cars delivered"],
                 ["214", "Point inspection"],
               ].map(([v, l]) => (
                 <div key={l}>
-                  <dt className="font-display text-4xl text-gradient-gold">{v}</dt>
-                  <dd className="mt-2 text-[0.65rem] uppercase tracking-[0.24em] text-muted-foreground">
+                  <dt className="font-display text-3xl text-gradient-gold">{v}</dt>
+                  <dd className="mt-2 text-[0.6rem] uppercase tracking-[0.24em] text-muted-foreground">
                     {l}
                   </dd>
                 </div>
               ))}
             </dl>
+            <BookingButtons className="mt-9" variant="compact" />
           </Reveal>
         </div>
       </div>
@@ -91,17 +87,17 @@ export function HarshaXAutomobile() {
 
 export function AboutHarsha() {
   return (
-    <section id="about" className="px-6 py-28 md:px-10 md:py-40">
-      <div className="mx-auto grid max-w-[1600px] gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)] lg:gap-24">
+    <section id="about" className="px-6 py-24 md:px-10 md:py-32">
+      <div className="mx-auto grid max-w-[1600px] gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)] lg:gap-20">
         <div>
           <Reveal>
-            <SectionLabel index="06">About Harsha</SectionLabel>
-            <h2 className="mt-6 max-w-xl font-display text-[clamp(2.25rem,5vw,4.5rem)] leading-[0.95]">
+            <SectionLabel index="07">About Harsha</SectionLabel>
+            <h2 className="mt-6 max-w-xl font-display text-[clamp(2rem,4.6vw,4.25rem)] leading-[0.95]">
               The person behind the showroom
             </h2>
           </Reveal>
           <Reveal delay={120}>
-            <div className="mt-10 max-w-xl space-y-6 text-sm leading-relaxed text-muted-foreground md:text-base">
+            <div className="mt-9 max-w-xl space-y-6 text-sm leading-relaxed text-muted-foreground md:text-base">
               <p>
                 What began as weekends in a workshop became a practice: sourcing exceptional
                 vehicles, restoring their presentation to factory intent, and matching them to the
@@ -114,7 +110,7 @@ export function AboutHarsha() {
             </div>
           </Reveal>
           <Reveal delay={220}>
-            <div className="mt-12 border-l border-gold/40 pl-6">
+            <div className="mt-11 border-l border-gold/40 pl-6">
               <p className="font-display text-2xl leading-snug text-ivory/90 md:text-3xl">
                 “A car should be delivered the way it was designed — nothing hidden, nothing
                 hurried.”
@@ -127,20 +123,11 @@ export function AboutHarsha() {
         </div>
 
         <Reveal delay={160}>
-          {harshaMedia.about ? (
-            <img
-              src={harshaMedia.about}
-              alt="Harsha at the showroom"
-              loading="lazy"
-              className="h-full w-full object-cover"
-            />
-          ) : (
-            <ReservedPhotoSlot
-              label="Editorial photograph of Harsha"
-              filename="src/assets/harsha-about.jpg"
-              className="h-full min-h-[26rem]"
-            />
-          )}
+          <Shot
+            slot={shots.heroSide}
+            alt="Harsha at the showroom"
+            className="h-full min-h-[26rem] w-full"
+          />
         </Reveal>
       </div>
     </section>
