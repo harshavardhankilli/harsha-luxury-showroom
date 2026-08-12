@@ -166,7 +166,7 @@ export function Hero() {
                 </p>
               </div>
 
-              <h1 className="mt-5 max-w-4xl font-display text-[clamp(3rem,8.4vw,7.5rem)] leading-[0.9] tracking-[-0.02em]">
+              <h1 className="mt-5 max-w-4xl font-display text-[clamp(2.8rem,6.6vw,6rem)] leading-[0.9] tracking-[-0.02em]">
                 {["The Art of", "the Automobile"].map((line, i) => (
                   <span key={line} className="block overflow-hidden pb-[0.08em]">
                     <span
