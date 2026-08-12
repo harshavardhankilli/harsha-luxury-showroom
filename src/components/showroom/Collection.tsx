@@ -88,62 +88,79 @@ const vehicles: Vehicle[] = [
     spec: [
       ["Adaptive", "Chassis"],
       ["5.4s", "0–100"],
-      ["31\"", "Rear screen"],
+      ['31"', "Rear screen"],
     ],
     price: "₹1.90 Cr",
     shot: shots.bmw7,
   },
 ];
 
-function VehiclePanel({ v, index }: { v: Vehicle; index: number }) {
+/** A gallery frame — hung on the wall, not a card. */
+function GalleryPiece({ v, index, wide }: { v: Vehicle; index: number; wide: boolean }) {
   const { open } = useBooking();
   return (
-    <article className="group relative flex h-full w-[86vw] shrink-0 flex-col border-r border-border bg-background sm:w-[62vw] lg:w-[46vw] xl:w-[38vw]">
-      <div className="relative flex-1 overflow-hidden">
+    <article className="group flex h-full flex-col">
+      <div className="relative flex-1 overflow-hidden bg-charcoal">
         <Shot
           slot={v.shot}
           alt={`${v.brand} ${v.model} — ${v.category}`}
           className="h-full w-full"
-          imgClassName="transition-transform duration-[1600ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
+          imgClassName="transition-transform duration-[1800ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.06]"
         />
-        <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-onyx via-onyx/10 to-transparent" />
-        <span className="absolute left-6 top-6 text-[0.62rem] tracking-[0.4em] text-gold-soft">
-          {String(index + 1).padStart(2, "0")}
-        </span>
-        <span className="absolute right-6 top-6 text-[0.62rem] uppercase tracking-[0.28em] text-ivory/70">
-          {v.category}
-        </span>
+        <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-onyx/85 via-onyx/5 to-transparent" />
+        <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-[1200ms] group-hover:opacity-100 warm-wash" />
+
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 p-6 md:p-8">
+          <div className="flex items-end justify-between gap-6">
+            <div className="min-w-0">
+              <p className="text-[0.58rem] uppercase tracking-[0.36em] text-gold-soft">
+                {String(index + 1).padStart(2, "0")} — {v.category}
+              </p>
+              <p className="mt-3 truncate text-[0.68rem] uppercase tracking-[0.3em] text-ivory/60">
+                {v.brand}
+              </p>
+              <h3
+                className={`mt-1 font-display leading-[0.95] ${
+                  wide ? "text-[clamp(2rem,3.6vw,3.6rem)]" : "text-[clamp(1.8rem,3vw,2.8rem)]"
+                }`}
+              >
+                {v.model}
+              </h3>
+            </div>
+            <span className="hidden shrink-0 text-right text-sm text-ivory/70 sm:block">
+              {v.price}
+            </span>
+          </div>
+
+          {/* specs slide up on hover — desktop refinement, always legible on touch */}
+          <div className="mt-5 max-h-0 overflow-hidden opacity-0 transition-all duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:max-h-40 group-hover:opacity-100 group-focus-within:max-h-40 group-focus-within:opacity-100">
+            <p className="max-w-sm text-sm leading-relaxed text-ivory/75">{v.highlight}</p>
+            <dl className="mt-5 flex flex-wrap gap-x-10 gap-y-3 border-t border-gold/20 pt-4">
+              {v.spec.map(([value, label]) => (
+                <div key={label}>
+                  <dt className="font-display text-xl text-ivory">{value}</dt>
+                  <dd className="mt-0.5 text-[0.55rem] uppercase tracking-[0.24em] text-muted-foreground">
+                    {label}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        </div>
       </div>
 
-      <div className="relative z-10 -mt-16 px-6 pb-8 md:px-8">
-        <p className="text-[0.62rem] uppercase tracking-[0.34em] text-muted-foreground">
-          {v.brand}
-        </p>
-        <h3 className="mt-2 font-display text-[clamp(1.9rem,3.4vw,3rem)] leading-none">
-          {v.model}
-        </h3>
-        <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted-foreground">{v.highlight}</p>
-
-        <dl className="mt-6 grid grid-cols-3 gap-4 border-t border-border pt-5">
-          {v.spec.map(([value, label]) => (
-            <div key={label}>
-              <dt className="font-display text-xl text-ivory">{value}</dt>
-              <dd className="mt-1 text-[0.58rem] uppercase tracking-[0.24em] text-muted-foreground">
-                {label}
-              </dd>
-            </div>
-          ))}
-        </dl>
-
-        <div className="mt-6 flex items-center justify-between gap-4 border-t border-border pt-5">
-          <span className="text-sm text-ivory/80">{v.price}</span>
-          <button
-            onClick={() => open("private-viewing", `${v.brand} ${v.model}`)}
-            className="shrink-0 border border-gold/40 px-5 py-3 text-[0.62rem] uppercase tracking-[0.26em] text-gold-soft transition-all duration-500 hover:bg-gold hover:text-primary-foreground"
-          >
-            Explore Vehicle
-          </button>
-        </div>
+      <div className="mt-5 flex items-center justify-between gap-4 border-t border-border pt-4">
+        <span className="text-sm text-ivory/70 sm:hidden">{v.price}</span>
+        <span className="hidden text-[0.6rem] uppercase tracking-[0.3em] text-muted-foreground sm:block">
+          Available to view
+        </span>
+        <button
+          onClick={() => open("private-viewing", `${v.brand} ${v.model}`)}
+          className="group/btn relative shrink-0 text-[0.62rem] uppercase tracking-[0.3em] text-gold-soft transition-colors duration-500 hover:text-ivory"
+        >
+          Enquire
+          <span className="absolute -bottom-1.5 left-0 h-px w-full origin-left scale-x-30 bg-gold transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/btn:scale-x-100" />
+        </button>
       </div>
     </article>
   );
@@ -158,8 +175,8 @@ export function Collection() {
 
   useEffect(() => {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const coarse = window.matchMedia("(max-width: 767px)").matches;
-    if (reduced || coarse) {
+    const small = window.matchMedia("(max-width: 1023px)").matches;
+    if (reduced || small) {
       setPinned(false);
       return;
     }
@@ -169,7 +186,7 @@ export function Collection() {
     const measure = () => {
       const track = trackRef.current;
       if (!track) return;
-      setDistance(Math.max(0, track.scrollWidth - window.innerWidth));
+      setDistance(Math.max(0, track.scrollWidth - window.innerWidth + 80));
     };
     const update = () => {
       frame = 0;
@@ -183,71 +200,88 @@ export function Collection() {
     const onScroll = () => {
       if (!frame) frame = requestAnimationFrame(update);
     };
+    const onResize = () => {
+      measure();
+      onScroll();
+    };
     measure();
     update();
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", () => {
-      measure();
-      onScroll();
-    });
+    window.addEventListener("resize", onResize);
     return () => {
       window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onResize);
       if (frame) cancelAnimationFrame(frame);
     };
   }, [distance]);
 
   return (
-    <section id="collection" className="relative border-t border-border">
-      <div className="mx-auto max-w-[1600px] px-6 pt-24 md:px-10 md:pt-32">
+    <section id="collection" className="relative section-seam">
+      <div className="mx-auto max-w-[1600px] px-6 pt-24 md:px-10 md:pt-36">
         <Reveal>
           <div className="grid gap-8 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
             <div className="min-w-0">
               <SectionLabel index="01">The Collection</SectionLabel>
-              <h2 className="mt-6 font-display text-[clamp(2.25rem,6vw,5.5rem)] leading-[0.94]">
+              <h2 className="mt-6 font-display text-[clamp(2.4rem,6vw,5.5rem)] leading-[0.94]">
                 Six cars on the floor,
                 <br />
                 <em className="text-gradient-gold not-italic">each one signed off</em>
               </h2>
             </div>
             <p className="max-w-xs text-sm leading-relaxed text-muted-foreground">
-              Scroll through the floor. Every car has been driven, inspected and prepared before it
-              is allowed under our lights.
+              Walk the gallery. Every car has been driven, inspected and prepared before it is
+              allowed under our lights.
             </p>
           </div>
         </Reveal>
       </div>
 
-      {/* Desktop: pinned horizontal sequence. Mobile: natural swipe rail. */}
-      <div
-        ref={wrapRef}
-        className="relative mt-14"
-        style={pinned ? { height: `${100 + vehicles.length * 55}svh` } : undefined}
-      >
-        <div className={pinned ? "sticky top-0 h-[100svh] overflow-hidden" : ""}>
-          <div
-            ref={trackRef}
-            className={
-              pinned
-                ? "flex h-[82svh] items-stretch border-y border-border will-change-transform"
-                : "flex snap-x snap-mandatory gap-0 overflow-x-auto border-y border-border [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-            }
-            style={
-              pinned
-                ? { transform: `translate3d(${-x}px, 0, 0)`, transition: "transform 120ms linear" }
-                : undefined
-            }
-          >
-            {vehicles.map((v, i) => (
-              <div key={v.model} className={pinned ? "h-full" : "h-[78svh] shrink-0 snap-start"}>
-                <VehiclePanel v={v} index={i} />
+      {/* Desktop: a pinned gallery wall that travels sideways.
+          Mobile: a purpose-built vertical editorial run — not a squeezed rail. */}
+      {pinned ? (
+        <div
+          ref={wrapRef}
+          className="relative mt-16"
+          style={{ height: `${100 + vehicles.length * 52}svh` }}
+        >
+          <div className="sticky top-0 h-[100svh] overflow-hidden">
+            <div
+              ref={trackRef}
+              className="flex h-[100svh] items-center gap-14 px-10 will-change-transform xl:gap-20"
+              style={{ transform: `translate3d(${-x}px, 0, 0)`, transition: "transform 140ms linear" }}
+            >
+              {vehicles.map((v, i) => (
+                <div
+                  key={v.model}
+                  className={
+                    i % 3 === 1
+                      ? "h-[58svh] w-[34vw] shrink-0 self-end pb-24"
+                      : i % 3 === 2
+                        ? "h-[70svh] w-[42vw] shrink-0"
+                        : "h-[64svh] w-[30vw] shrink-0 self-start pt-24"
+                  }
+                >
+                  <GalleryPiece v={v} index={i} wide={i % 3 === 2} />
+                </div>
+              ))}
+              <div className="h-[64svh] w-[26vw] shrink-0 self-center">
+                <p className="font-display text-[clamp(2rem,3vw,3.2rem)] leading-[1.05] text-ivory/80">
+                  Everything here can be
+                  <em className="text-gradient-gold not-italic"> driven today.</em>
+                </p>
+                <div className="mt-8 rule-gold" />
+                <p className="mt-6 max-w-xs text-sm leading-relaxed text-muted-foreground">
+                  Tell us which car and we will have it uncovered, warmed and waiting.
+                </p>
               </div>
-            ))}
-          </div>
+            </div>
 
-          {pinned ? (
-            <div className="pointer-events-none absolute inset-x-0 bottom-6 mx-auto flex max-w-[1600px] items-center gap-4 px-10">
-              <span className="text-[0.6rem] tracking-[0.34em] text-muted-foreground">
-                DRAG THE FLOOR — SCROLL
+            <div className="pointer-events-none absolute inset-y-0 left-0 w-24 bg-linear-to-r from-onyx to-transparent" />
+            <div className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-linear-to-l from-onyx to-transparent" />
+
+            <div className="pointer-events-none absolute inset-x-0 bottom-8 mx-auto flex max-w-[1600px] items-center gap-5 px-10">
+              <span className="text-[0.58rem] tracking-[0.36em] text-muted-foreground">
+                THE GALLERY FLOOR
               </span>
               <span className="h-px flex-1 bg-border">
                 <span
@@ -256,9 +290,21 @@ export function Collection() {
                 />
               </span>
             </div>
-          ) : null}
+          </div>
         </div>
-      </div>
+      ) : (
+        <div className="mt-14 space-y-16 px-6 md:px-10">
+          {vehicles.map((v, i) => (
+            <Reveal key={v.model} delay={(i % 2) * 80}>
+              <div className={i % 2 === 1 ? "ml-auto w-[92%]" : "w-full"}>
+                <div className="h-[62svh] min-h-[22rem]">
+                  <GalleryPiece v={v} index={i} wide={false} />
+                </div>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      )}
     </section>
   );
 }

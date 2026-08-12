@@ -1,16 +1,25 @@
 /**
  * SITE MEDIA REGISTRY — HARSHA AUTOMOBILE SHOWROOM
  *
- * Every photograph on the site is referenced by its EXACT delivery path/name, e.g.
- *   src/assets/hero/01-hero-harsha.jpg
- *   src/assets/collection/06-maybach-s-class.jpg
+ * ★★★ REPLACE THE HARSHA PHOTOGRAPHS HERE ★★★
+ * Every frame that shows Harsha is a named slot pointing at an EXACT file path:
  *
- * Drop the real files into `src/assets/<folder>/<exact-name>.jpg` and they are picked
- * up automatically — no code change required. Until a file exists:
- *   - car / showroom frames fall back to a neutral placeholder photograph
- *   - every frame containing Harsha renders a clearly named reserved slot
- *     (no stand-in human is ever substituted).
+ *   src/assets/hero/01-hero-harsha.jpg        → shots.heroMain     (full-screen hero)
+ *   src/assets/hero/02-hero-harsha-side.jpg   → shots.heroSide     (hero portrait inset)
+ *   src/assets/arrival/03-arrival-walking.jpg → shots.arrivalWalking
+ *   src/assets/interior/17-harsha-inside-car.jpg → shots.harshaInside
+ *   src/assets/harsha/21-harsha-with-maybach.jpg → shots.harshaMaybach
+ *   src/assets/harsha/22-harsha-mercedes.jpg  → shots.harshaMercedes
+ *
+ * To swap any of them, drop the new file at that exact path (or replace the
+ * matching `<name>.jpg.asset.json` pointer sitting beside it). Nothing else in
+ * the codebase needs to change.
+ *
+ * RULE: a human face is NEVER generated or substituted. If a Harsha file is
+ * missing, the layout renders a clearly labelled reserved slot naming the exact
+ * file to supply. Car / showroom frames may fall back to a neutral photograph.
  */
+
 
 import heroCar from "@/assets/hero-car.jpg";
 import vehicleSedan from "@/assets/vehicle-sedan.jpg";
