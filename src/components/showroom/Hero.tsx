@@ -142,7 +142,7 @@ export function Hero() {
             slot={shots.heroMain}
             alt="Harsha at the Hyderabad showroom beside a black luxury saloon"
             loading="eager"
-            position={narrow ? "10% 28%" : "center 32%"}
+            position={narrow ? "0% 26%" : "center 32%"}
             className="h-[108svh] w-full"
             imgClassName="transition-transform duration-[2600ms] ease-[cubic-bezier(0.16,1,0.3,1)]"
             style={{ transform: loaded ? "scale(1.02)" : "scale(1.14)" }}
