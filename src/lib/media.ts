@@ -26,8 +26,14 @@ const found = import.meta.glob("/src/assets/**/*.{jpg,jpeg,png,webp,avif}", {
   import: "default",
 }) as Record<string, string>;
 
+/** CDN-hosted photographs, delivered as `<name>.jpg.asset.json` pointer files. */
+const pointers = import.meta.glob("/src/assets/**/*.asset.json", {
+  eager: true,
+  import: "default",
+}) as Record<string, { url: string }>;
+
 function resolve(path: string): string | null {
-  return found[`/src/assets/${path}`] ?? null;
+  return found[`/src/assets/${path}`] ?? pointers[`/src/assets/${path}.asset.json`]?.url ?? null;
 }
 
 export type Slot = {
