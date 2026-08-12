@@ -195,3 +195,34 @@
     animation: none;
   }
 }
+
+/* ── Cinematic surface utilities ─────────────────────────────────────────── */
+
+@utility warm-wash {
+  background:
+    radial-gradient(60% 45% at 78% 18%, oklch(0.79 0.09 82 / 0.16), transparent 70%),
+    radial-gradient(50% 40% at 12% 8%, oklch(0.86 0.05 85 / 0.1), transparent 72%);
+}
+
+@utility floor-gloss {
+  background: linear-gradient(
+    to top,
+    var(--onyx) 8%,
+    oklch(0.09 0.004 260 / 0.72) 42%,
+    transparent 100%
+  );
+}
+
+/* A hairline seam instead of a hard divider between sections. */
+@utility section-seam {
+  border-top: 1px solid transparent;
+  border-image: linear-gradient(
+      90deg,
+      transparent,
+      oklch(1 0 0 / 0.14) 22%,
+      oklch(0.79 0.09 82 / 0.35) 50%,
+      oklch(1 0 0 / 0.14) 78%,
+      transparent
+    )
+    1;
+}
