@@ -96,7 +96,17 @@ function usePointerDrift(strength = 14) {
 export function Hero() {
   const [offset, setOffset] = useState(0);
   const [loaded, setLoaded] = useState(false);
+  const [narrow, setNarrow] = useState(false);
   const { dx, dy } = usePointerDrift(16);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px)");
+    const sync = () => setNarrow(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
+
 
   useEffect(() => {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
